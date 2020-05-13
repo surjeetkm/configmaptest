@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-test
+  namespace: default
+spec:
+  replicas: 2
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: configmap-test
+  template:
+    metadata:
+      name: configmap-test
+    spec:
+      containers:
+        - image: eu.gcr.io/microservices-2020/configmap:latest
+          name: configmap-test
+          imagePullPolicy: Always
+          ports:
+           - containerPort: 8080
+             protocol: TCP
+  
