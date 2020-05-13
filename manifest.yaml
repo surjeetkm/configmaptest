@@ -8,11 +8,12 @@ spec:
   strategy:
     type: Recreate
   selector:
-    matchLabels:
-      app: configmap-test
+     matchLabels:
+       app: configmap-test
   template:
     metadata:
-      name: configmap-test
+      labels:
+         app: configmap-test
     spec:
       containers:
         - image: eu.gcr.io/microservices-2020/configmap:latest
@@ -21,4 +22,26 @@ spec:
           ports:
            - containerPort: 8080
              protocol: TCP
-  
+          env:
+            - name: CONFIG_MESSAGE
+              valueFrom:
+                configMapKeyRef:
+                  name: myconfigmap
+                  key: test.message
+---         
+apiVersion: v1
+kind: Service
+metadata:
+   name: configmap-test
+   namespace: default
+   labels:
+      name: configmap-test
+spec:
+   ports:
+     - port: 8080
+       targetPort: 8080
+       protocol: TCP
+   selector:
+      app: configmap-test
+   type: LoadBalancer
+          

@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+   name: myconfigmap
+data:
+  test.message: Hello Good Morning
+  test.username: Username Rocky
+  test.password: Password admin123 
