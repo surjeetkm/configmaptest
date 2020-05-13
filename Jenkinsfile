@@ -9,11 +9,11 @@ node{
 	}
 	stage("Run Junit and Integration Test cases"){}
 	stage("Build docker image"){
-		app=docker.build("microservices-2020/configmap:v1")
+		app=docker.build("microservices-2020/configmap")
 	}
 	stage("Push Docker image to Container Registry"){
 			docker.withRegistry('https://eu.gcr.io', 'gcr:myregistry') {
-			app.push
+			app.push("latest")
 		}
 	}
 }
