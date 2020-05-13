@@ -18,6 +18,7 @@ public class HelloController {
 	@GetMapping
 	public String test() {
 		String prefix = System.getenv().getOrDefault("CONFIG_MESSAGE", "Hi");
+		System.out.println(prefix);
 		System.out.println("Hello Welcome!");
 		return String.format(message, prefix);
 	}
