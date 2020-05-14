@@ -15,6 +15,9 @@ public class HelloController {
 	private Environment env;
 	@Value("${test.message:default test message}")
 	private String message;
+	@Value("${mypassword:default password}")
+	private String password;
+	
 	@GetMapping
 	public String test() {
 		String prefix = System.getenv().getOrDefault("CONFIG_MESSAGE", "Hi");
@@ -31,5 +34,12 @@ public class HelloController {
 		System.out.println("Firstname:"+username);
 		System.out.println("User Password:"+ pswrd);
 		return "Swagger Hello World"+ message;
+	}
+	@RequestMapping(method = RequestMethod.GET, value = "/getpassword")
+	public String saypasswordFromSecret() {
+		String password=env.getProperty("mypassword");
+		String pswrd=env.getProperty("test.mypassword");
+		System.out.println("MyPassword:"+ pswrd);
+		return password;
 	}
 }

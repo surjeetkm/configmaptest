@@ -1,8 +1,41 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: cluster-read-role
+rules:
+- apiGroups:
+  - ""
+  resources:
+  - endpoints
+  - pods
+  - services
+  - configmaps
+  verbs:
+  - get
+  - list
+  - watch
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: cluster-read-rolebinding
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: default
+roleRef:
+  kind: ClusterRole
+  name: cluster-read-role
+  apiGroup: rbac.authorization.k8s.io
+---
+
 apiVersion: v1
 kind: ConfigMap
 metadata:
    name: myconfigmap
 data:
-  test.message: Hello Good Morning
-  test.username: Username Rocky
-  test.password: Password admin123 
+  test.message:"Hello Good Morning"
+  test.username:"Username Rocky"
+  test.password: "Password admin123"
+  
